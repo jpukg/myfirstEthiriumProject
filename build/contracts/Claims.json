@@ -6290,7 +6290,7 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0x13274fe19c0178208bcbee397af8167a7be27f6f"
+      "address": "0xcb152a2aa90055a0d255ca7dbaeb85edfdc86096"
     },
     "1534968939359": {
       "events": {},
@@ -6299,5 +6299,5 @@
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-08-24T13:27:58.393Z"
+  "updatedAt": "2018-08-24T18:34:41.593Z"
 }

@@ -23,66 +23,88 @@
 </head>
 
 <body>
-  <ul>
+  <table>
+    <tr>
+      <td>
+        <ul>
 
-    <div class ="a">Contract initiated</div>
-  
-    <div class ="a">Claim registered</div>
-  
-    <div class ="a">Claim received</div>
-  
-    <div class ="a">Voucher available</div>
-  
-    <div class ="a">Voucher received</div>
-  
-    <div class ="a">Voucher exchanged</div>
-  
-    <div class ="a">Vocher in the process</div>
-  
-    <div class ="a">Expert validation requested</div>
-  
-    <div class ="a">Expert validation in the process</div>
-  
-    <div class ="a">Expert report available</div>
-  
-    <div class ="a">Payment verified and paid</div>
-  
-  </ul>
+          <div class="a">Contract <br/>initiated
+          </div>
+
+          <div class="a">Claim <br/>registered
+          </div>
+
+          <div class="a">Claim <br/>received
+          </div>
+
+          <div class="a">Voucher <br/>available
+          </div>
+
+          <div class="a">Voucher <br/>received
+          </div>  
+
+          <div class="a">Voucher <br/>exchanged
+          </div>
+
+          <div class="a">Vocher in <br/>the process
+          </div>
+
+          <div class="a">Expert validation <br/>requested
+          </div>
+
+          <div class="a">Expert validation <br/>in the process
+          </div>
+
+          <div class="a">Expert report <br/>available
+          </div>
+
+          <div class="a">Payment verified <br/>and paid
+          </div>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <ul id="ulStage">
+            <li>0</li>
+
+          <li>1</li>
+
+          <li>2</li>
+
+          <li>3</li>
+
+          <li class="active">4</li>
+
+          <li>5</li>
+
+          <li>6</li>
+
+          <li>7</li>
+
+          <li>8</li>
+
+          <li>9</li>
+
+          <li>10</li>
+         
+
+        </ul>
+      </td>
+    </tr>
+  </table>
+
 
   <br>
-  
-  <ul>
-  
-    <li>1</li>
-  
-    <li>2</li>
-  
-    <li>3</li>
-  
-    <li class="active">4</li>
-  
-    <li>5</li>
-  
-    <li>6</li>
-  
-    <li>7</li>
-  
-    <li>8</li>
-  
-    <li>9</li>
-  
-    <li>10</li>
-  
-    <li>11</li>
-  
-  </ul>
+
+
   <div id="div-claim" class="banner-message">
     <p>Claims details</p>
     <input type="text" value="" id="policyNo" placeholder="Policy number" required>
-    <input type="text" value="" id="claimDate"  placeholder="Claim date (DDMMYYY)" required>
-    <input type="text" value="" id="location"  placeholder="Location" required>
-    <input type="text" value="" id="claimDesc"  placeholder="Claim details" required>
-    <button>Submit</button>
+    <input type="text" value="" id="claimDate" placeholder="Claim date (DDMMYYY)" required>
+    <input type="text" value="" id="location" placeholder="Location" required>
+    <input type="text" value="" id="claimDesc" placeholder="Claim details" required>
+    <button id="claimBtn">Submit</button>
   </div>
   <div id="div-voucher" class="banner-message">
     <p>Voucher details</p>
@@ -91,7 +113,7 @@
   </div>
   <div id="div-repair" class="banner-message">
     <p>Repair details</p>
-    <input type="text" id ="repairAmount" placeholder="Repair amount (EUR)" required>
+    <input type="text" id="repairAmount" placeholder="Repair amount (EUR)" required>
     <input type="text" id="repairDesc" placeholder="Repair details" required>
     <button>Submit</button>
   </div>
@@ -126,8 +148,8 @@
 <script src="../js/app.js"></script>
 <script type="text/javascript">
 
-  var stageGbl;
-  var partyGbl;
+  var stageGbl = 0;
+  var partyGbl = 0;
 
   var _idPolicyGbl, _dateClaimGbl, _dtLocationGbl, _dtClaimGbl;
 
@@ -139,6 +161,17 @@
 
   $(document).ready(function () {
 
+    //  stageGbl = 7;
+    // alert(stageGbl);
+
+
+    $('#ulStage li.active').removeClass('active');
+    if(stageGbl==0) {
+      $("#ulStage li:nth-child(1)").addClass('active');
+    }
+    else if (stageGbl < 11) {
+      $("#ulStage li:nth-child(" + stageGbl + ")").addClass('active');
+    }
 
 
   });

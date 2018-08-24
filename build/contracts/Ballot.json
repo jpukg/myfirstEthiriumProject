@@ -2497,7 +2497,7 @@
     "4447": {
       "events": {},
       "links": {},
-      "address": "0xbaaa2a3237035a2c7fa2a33c76b44a8c6fe18e87"
+      "address": "0x4eee4559bd589b1cdfc419f0eed2ff9cbd47f439"
     },
     "1534968939359": {
       "events": {},
@@ -2506,5 +2506,5 @@
     }
   },
   "schemaVersion": "1.0.1",
-  "updatedAt": "2018-08-24T13:27:58.277Z"
+  "updatedAt": "2018-08-24T18:34:41.443Z"
 }
