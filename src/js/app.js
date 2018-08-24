@@ -6,19 +6,7 @@ App = {
   chairPerson: null,
   currentAccount: null,
   init: function () {
-    $.getJSON('../proposals.json', function (data) {
-      var proposalsRow = $('#proposalsRow');
-      var proposalTemplate = $('#proposalTemplate');
-
-      for (i = 0; i < data.length; i++) {
-        proposalTemplate.find('.panel-title').text(data[i].name);
-        proposalTemplate.find('img').attr('src', data[i].picture);
-        proposalTemplate.find('.btn-vote').attr('data-id', data[i].id);
-
-        proposalsRow.append(proposalTemplate.html());
-        App.names.push(data[i].name);
-      }
-    });
+  
     return App.initWeb3();
   },
 
@@ -32,7 +20,7 @@ App = {
     }
     web3 = new Web3(App.web3Provider);
 
-    App.populateAddress();
+   
     return App.initContract();
   },
 
@@ -45,7 +33,20 @@ App = {
       // Set the provider for our contract
       App.contracts.vote.setProvider(App.web3Provider);
 
-      App.registerParties('0xf17f52151ebef6c7334fad080c5704d77216b732', '0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef', '0x821aea9a577a9b44299b9c15c88cf3087f3b5544');
+      App.getClaimStage();
+
+      if(stageGbl === undefined) {
+        console.log("init ", stageGbl);
+        App.registerParties('0xf17f52151ebef6c7334fad080c5704d77216b732', '0xc5fdf4076b8f3a5357c5e395ab970b5b54098fef', '0x821aea9a577a9b44299b9c15c88cf3087f3b5544');
+      } else {
+        console.log("init else ", stageGbl);
+      }
+      
+      App.getParty();
+      App.viewClaim();
+      App.viewVoucher();
+      App.viewRepair();
+
       return App.bindEvents();
     });
   },
@@ -53,15 +54,15 @@ App = {
   bindEvents: function () {
     $(document).on('click', '.btn-vote', App.handleVote);
     $(document).on('click', '#win-count', App.handleWinner);
-    $(document).ready(function () {
-      console.log("ready!");
-      App.getClaimStage();
-      App.getParty();
-      App.viewClaim();
-      App.viewVoucher();
-      App.viewRepair();
+    // $(document).ready(function () {
+    //   console.log("ready!");
+    //   App.getClaimStage();
+    //   App.getParty();
+    //   App.viewClaim();
+    //   App.viewVoucher();
+    //   App.viewRepair();
 
-    });
+    // });
 
     $(document).on('click', '.btn-registerClaim', function () {
       var policyNo = $('#policyNo').val();
@@ -74,18 +75,7 @@ App = {
 
     });
   },
-
-  populateAddress: function () {
-    new Web3(new Web3.providers.HttpProvider(App.url)).eth.getAccounts((err, accounts) => {
-      jQuery.each(accounts, function (i) {
-        if (web3.eth.coinbase != accounts[i]) {
-          var optionElement = '<option value="' + accounts[i] + '">' + accounts[i] + '</option';
-          jQuery('#enter_address').append(optionElement);
-        }
-      });
-    });
-  },
-
+ 
 
   registerParties: function (_claimant, _provider, _expert) {
     var voteInstance;
@@ -108,7 +98,7 @@ App = {
     App.contracts.vote.deployed().then(function (instance) {
       return instance.getStage();
     }).then(function (result) {
-      // console("Stage :" + result.toString());
+       console.log("Stage :" , result.toString());
       stageGbl = result.toString();
       App.chairPerson = result.toString();
       App.currentAccount = web3.eth.coinbase;
@@ -248,40 +238,9 @@ App = {
     })
   },
 
-  handleVote: function (event) {
-    event.preventDefault();
-    var proposalId = parseInt($(event.target).data('id'));
-    var voteInstance;
+   
 
-    web3.eth.getAccounts(function (error, accounts) {
-      var account = accounts[0];
 
-      App.contracts.vote.deployed().then(function (instance) {
-        voteInstance = instance;
-
-        return voteInstance.vote(proposalId, { from: account });
-      }).then(function (result) {
-        if (result.receipt.status == '0x01')
-          alert(account + " voting done successfully")
-        else
-          alert(account + " voting not done successfully due to revert")
-      }).catch(function (err) {
-        alert(account + " voting failed")
-      });
-    });
-  },
-
-  handleWinner: function () {
-    var voteInstance;
-    App.contracts.vote.deployed().then(function (instance) {
-      voteInstance = instance;
-      return voteInstance.winningProposal();
-    }).then(function (res) {
-      alert(App.names[res] + "  is the winner ! :)");
-    }).catch(function (err) {
-      console.log(err.message);
-    })
-  }
 };
 
 $(function () {
