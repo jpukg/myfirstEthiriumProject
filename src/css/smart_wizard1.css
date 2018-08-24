@@ -1,0 +1,109 @@
+li {
+    width: 2em;
+    height: 2em;
+    text-align: center;
+    line-height: 2em;
+    border-radius: 1em;
+    background: dodgerblue;
+    margin: 0 1em;
+    display: inline-block;
+    color: white;
+    position: relative;
+  }
+  
+  li::before{
+    content: '';
+    position: absolute;
+    top: .9em;
+    left: -4em;
+    width: 4em;
+    height: .2em;
+    background: dodgerblue;
+    z-index: -1;
+  }
+  
+  
+  li:first-child::before {
+    display: none;
+  }
+  
+  .active {
+    background: dodgerblue;
+  }
+  
+  .active ~ li {
+    background: lightblue;
+  }
+  
+  .active ~ li::before {
+    background: lightblue;
+  }
+  body {
+    background: #ffffff;
+    padding: 300px;
+    font-family: Helvetica;
+    text-align:center;
+  }
+
+  .banner-message {
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    font-size: 25px;
+    text-align: left;
+    transition: all 0.2s;
+    margin-bottom:3px;
+    padding:10px;
+    width: 100%;
+    border:1px solid #CCC
+  }
+  
+  button {
+    background: #0084ff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 15px;
+    color: #fff;
+  }
+  
+  input {
+    margin-bottom:3px;
+    padding:10px;
+    width: 95%;
+    border:1px solid #CCC
+  }
+
+  /* Disable button on DIV */
+  .disabledbutton {
+    pointer-events: none;
+    opacity: 0.4;
+ }
+
+ div.a {
+
+  font-size: 0.5rem;
+
+  font-family: Helvetica, Arial, sans-serif;
+
+  text-align: center;
+
+  color: blue;
+
+  width: 50px;
+
+  border: 1px;
+
+  word-wrap: break-word;
+
+   float:left;
+
+}
+
+input[type=checkbox] {
+
+  transform: scale(3.0);
+
+}
+
+ 
